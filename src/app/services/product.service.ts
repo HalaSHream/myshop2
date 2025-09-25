@@ -1,0 +1,28 @@
+import { Injectable } from '@angular/core';
+import { Product } from '../models/product';
+
+@Injectable({ providedIn: 'root' })
+export class ProductService {
+  products: Product[] = [
+    { id: 1, name: 'Laptop', description: 'High performance laptop', price: 1200, image: 'https://picsum.photos/200?1' },
+    { id: 2, name: 'Phone', description: 'Latest smartphone', price: 800, image: 'https://picsum.photos/200?2' },
+    { id: 3, name: 'Headphones', description: 'Noise cancelling', price: 200, image: 'https://picsum.photos/200?3'} ,
+    {id:4,name:'Keyboard',description:'fast',price:180,image:'https://picsum.photos/200?4'},
+    {id:5,name:'Mobile charger',description:'fast',price:30,image:'https://picsum.photos/200?5'},
+    {id:6,name:'Earphone',description:'fast',price:190,image:'https://picsum.photos/200?6'},
+    {id:7,name:'Keyboard',description:'fast',price:180,image:'https://picsum.photos/200?7'},
+    {id:8,name:'Mobile charger',description:'fast',price:30,image:'https://picsum.photos/200?8'},
+    {id:9,name:'Earphone',description:'fast',price:190,image:'https://picsum.photos/200?9'},
+    {id:10,name:'Keyboard',description:'fast',price:180,image:'https://picsum.photos/200?10'},
+    {id:11,name:'Mobile charger',description:'fast',price:30,image:'https://picsum.photos/200?11'},
+    {id:12,name:'Earphone',description:'fast',price:190,image:'https://picsum.photos/200?12'}
+  ];
+
+  getProducts() {
+    return this.products;
+  }
+
+  getProductById(id: number) {
+    return this.products.find(p => p.id === id);
+  }
+}
