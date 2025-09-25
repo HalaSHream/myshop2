@@ -15,14 +15,21 @@ import { Product } from '../../models/product';
         <div class="cart-item" *ngFor="let item of cart; let i = index">
           <div class="item-info">
             <img [src]="item.image" [alt]="item.name" class="item-image" />
-            <p class="name">{{ item.name }}</p>
-            <p class="price">\${{ item.price }}</p>
+            <div>
+              <p class="name">{{ item.name }}</p>
+              <p class="price">\${{ item.price }}</p>
+            </div>
           </div>
           <button class="remove-btn" (click)="remove(i)">Remove</button>
         </div>
         <div class="total">
           <p>Total: <strong>\${{ total }}</strong></p>
           <a routerLink="/checkout" class="checkout-btn">Go to Checkout</a>
+        </div>
+
+        <!-- رسالة نجاح -->
+        <div *ngIf="message" class="success-message">
+          {{ message }}
         </div>
       </div>
       <ng-template #empty>
@@ -67,7 +74,6 @@ import { Product } from '../../models/product';
       transition: transform 0.2s, box-shadow 0.2s;
     }
 
-
     .item-info {
       flex: 1;
       display: flex;
@@ -85,8 +91,6 @@ import { Product } from '../../models/product';
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
-
-
 
     .name {
       font-weight: bold;
@@ -144,6 +148,24 @@ import { Product } from '../../models/product';
       padding: 20px 0;
     }
 
+    .success-message {
+      margin-top: 20px;
+      background-color: #d4edda;
+      color: #155724;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid #c3e6cb;
+      font-size: 1rem;
+      animation: fadeInOut 3s forwards;
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
     @media (max-width: 600px) {
       .cart-item {
         flex-direction: column;
@@ -161,6 +183,7 @@ import { Product } from '../../models/product';
 export class CartComponent implements OnInit {
   cart: Product[] = [];
   total = 0;
+  message = '';
 
   constructor(private cartService: CartService) {}
 
@@ -173,5 +196,8 @@ export class CartComponent implements OnInit {
     this.cartService.removeFromCart(i);
     this.cart = this.cartService.getCart();
     this.total = this.cartService.getTotal();
+
+    this.message = '✅ The product has been removed from the cart';
+    setTimeout(() => this.message = '', 3000);
   }
 }
